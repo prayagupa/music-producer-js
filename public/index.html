@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aria – AI Chatbot</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── Sidebar ─────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🤖</span>
+        <span class="logo-text">Aria AI</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <span class="sidebar-label">Conversations</span>
+      <ul class="convo-list" id="convoList">
+        <li class="convo-item active" data-id="main">
+          <span class="convo-icon">💬</span>
+          <span class="convo-name">New Chat</span>
+        </li>
+      </ul>
+      <button class="new-chat-btn" id="newChatBtn">
+        <span>+</span> New Chat
+      </button>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusText">Connecting…</span>
+    </div>
+  </aside>
+
+  <!-- ── Main chat area ───────────────────────── -->
+  <main class="chat-main">
+
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="chat-header-left">
+        <div class="bot-avatar">🤖</div>
+        <div class="bot-info">
+          <span class="bot-name">Aria</span>
+          <span class="bot-status" id="headerStatus">Connecting…</span>
+        </div>
+      </div>
+      <div class="chat-header-right">
+        <button class="icon-btn" title="Clear chat" id="clearBtn">🗑️</button>
+      </div>
+    </header>
+
+    <!-- Messages -->
+    <section class="messages-container" id="messagesContainer">
+      <div class="messages-list" id="messagesList"></div>
+    </section>
+
+    <!-- Typing indicator (hidden by default) -->
+    <div class="typing-indicator hidden" id="typingIndicator">
+      <div class="bot-avatar-sm">🤖</div>
+      <div class="typing-bubble">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Input bar -->
+    <footer class="chat-footer">
+      <div class="input-wrapper">
+        <textarea
+          id="msgInput"
+          class="msg-input"
+          placeholder="Message Aria…"
+          rows="1"
+          autofocus
+        ></textarea>
+        <button class="send-btn" id="sendBtn" disabled title="Send">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+      <p class="footer-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</p>
+    </footer>
+
+  </main>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
