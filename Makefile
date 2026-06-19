@@ -21,7 +21,7 @@ dev-frontend:
 	cd $(FRONTEND_DIR) && npm run dev
 
 test:
-	cd $(BACKEND_DIR) && .venv/bin/python -m pytest tests/ -v
+	cd $(BACKEND_DIR) && .venv/bin/python -m pytest tests/ ../eval/test_constraints.py -v
 
 eval:
 	PYTHONPATH=backend/src:. $(PYTHON) -m eval.run

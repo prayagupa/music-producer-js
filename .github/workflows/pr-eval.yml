@@ -21,6 +21,9 @@ jobs:
           pip install -e ".[dev]"
           pip install pyyaml
 
+      - name: Run backend tests
+        run: make test
+
       - name: Run eval-quick with mock LLM
         run: make eval-quick
         env:
