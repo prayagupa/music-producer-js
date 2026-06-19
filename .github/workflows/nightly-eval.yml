@@ -1,0 +1,39 @@
+name: Nightly Eval
+
+# Full eval runs against cached mock LLM fixtures (eval/mock/*.json) rather than
+# live Ollama/OpenAI calls. This keeps nightly CI deterministic, fast, and free of
+# API keys while still exercising L1–L3 validation and golden expected_constraints.
+# Set EVAL_MOCK_LLM=true to load per-prompt fixtures aligned with prompts.v1.yaml.
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  eval-full:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -e ".[dev]"
+          pip install pyyaml
+
+      - name: Run full eval with mock LLM fixtures
+        run: EVAL_MOCK_LLM=true python -m eval.run --mock
+        working-directory: .
+
+      - name: Upload eval report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nightly-eval-report
+          path: eval/reports/*.json

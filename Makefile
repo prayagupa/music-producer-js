@@ -1,18 +1,39 @@
-install:
-	npm install
+.PHONY: install dev-backend dev-frontend test eval eval-quick up down logs
 
-dev:
-	./node_modules/.bin/webpack-dev-server
+BACKEND_DIR := backend
+FRONTEND_DIR := frontend
+VENV := $(BACKEND_DIR)/.venv
+PYTHON := $(VENV)/bin/python
+PIP := $(VENV)/bin/pip
+
+install: install-backend install-frontend
+
+install-backend:
+	cd $(BACKEND_DIR) && python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+
+install-frontend:
+	cd $(FRONTEND_DIR) && npm install
+
+dev-backend:
+	cd $(BACKEND_DIR) && .venv/bin/python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000 --app-dir src
+
+dev-frontend:
+	cd $(FRONTEND_DIR) && npm run dev
 
 test:
-	karma start
+	cd $(BACKEND_DIR) && .venv/bin/python -m pytest tests/ -v
 
-tree:
-	cd .. && tree -I node_modules -A -F music-chat
+eval:
+	PYTHONPATH=backend/src:. $(PYTHON) -m eval.run
 
-# dev command to build the css 
-css:
-	mkdir -p tmp
-	cat app/css/styles.scss | sed 's/~bootstrap/bootstrap/g' | node-sass --include-path ./node_modules --include-path ./app/css > tmp/styles.css
-	cat tmp/styles.css | sed 's/bootstrap-sass\/assets\/fonts/..\/..\/node_modules\/bootstrap-sass\/assets\/fonts/g' > app/css/styles.css
+eval-quick:
+	PYTHONPATH=backend/src:. EVAL_MOCK_LLM=true $(PYTHON) -m eval.run --quick --mock
 
+up:
+	docker compose up --build -d
+
+down:
+	docker compose down
+
+logs:
+	docker compose logs -f

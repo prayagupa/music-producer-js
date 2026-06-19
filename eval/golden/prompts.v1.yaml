@@ -1,0 +1,98 @@
+version: "1.0.0"
+quick_subset:
+  - gp-001
+  - gp-002
+  - gp-003
+  - gp-004
+  - gp-005
+prompts:
+  - id: gp-001
+    prompt: "sad lo-fi beat with minimal drums"
+    controls: { tempo_bpm: 80, key: "Am", genre: "lo-fi", mood: "melancholic" }
+    expected_constraints: { tempo_range: [70, 90], key: "Am", min_melody_notes: 4, min_drum_hits: 1 }
+    reference_notes: "Sparse minor lo-fi"
+  - id: gp-002
+    prompt: "upbeat pop chorus with bright melody"
+    controls: { tempo_bpm: 120, key: "C", genre: "pop", mood: "happy" }
+    expected_constraints: { tempo_range: [110, 130], key: "C", min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-003
+    prompt: "smooth jazz walking bass feel"
+    controls: { tempo_bpm: 100, key: "F", genre: "jazz", mood: "calm" }
+    expected_constraints: { tempo_range: [90, 110], min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-004
+    prompt: "dark electronic pulse with heavy kick"
+    controls: { tempo_bpm: 128, key: "Dm", genre: "electronic", mood: "dark" }
+    expected_constraints: { tempo_range: [120, 140], min_melody_notes: 4, min_drum_hits: 2 }
+  - id: gp-005
+    prompt: "hip-hop boom bap with snare on 2 and 4"
+    controls: { tempo_bpm: 90, key: "Gm", genre: "hip-hop", mood: "energetic" }
+    expected_constraints: { tempo_range: [85, 95], min_melody_notes: 4, min_drum_hits: 2 }
+  - id: gp-006
+    prompt: "ambient pad-like chords, very slow"
+    controls: { tempo_bpm: 60, key: "Em", genre: "ambient", mood: "calm" }
+    expected_constraints: { tempo_range: [50, 70], min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-007
+    prompt: "rock power chords driving rhythm"
+    controls: { tempo_bpm: 140, key: "E", genre: "rock", mood: "energetic" }
+    expected_constraints: { tempo_range: [130, 150], min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-008
+    prompt: "classical minor progression, elegant melody"
+    controls: { tempo_bpm: 72, key: "Cm", genre: "classical", mood: "romantic" }
+    expected_constraints: { tempo_range: [65, 80], min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-009
+    prompt: "tense cinematic underscore"
+    controls: { tempo_bpm: 110, key: "F#m", genre: "ambient", mood: "tense" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-010
+    prompt: "happy whistle-like melody"
+    controls: { tempo_bpm: 130, key: "G", genre: "pop", mood: "happy" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-011
+    prompt: "melancholic rainy day piano loop"
+    controls: { tempo_bpm: 75, key: "Dm", genre: "lo-fi", mood: "melancholic" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-012
+    prompt: "minimal"
+    controls: { tempo_bpm: 100, key: "C", genre: "ambient", mood: "calm" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+    reference_notes: "Edge case: minimal prompt"
+  - id: gp-013
+    prompt: "happy dark conflicting vibes"
+    controls: { tempo_bpm: 100, key: "Am", genre: "pop", mood: "dark" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+    reference_notes: "Edge case: conflicting mood/genre"
+  - id: gp-014
+    prompt: "fast energetic workout track"
+    controls: { tempo_bpm: 240, key: "A", genre: "electronic", mood: "energetic" }
+    expected_constraints: { tempo_range: [230, 240], min_melody_notes: 4, min_drum_hits: 1 }
+    reference_notes: "Edge case: max BPM"
+  - id: gp-015
+    prompt: "very slow ballad"
+    controls: { tempo_bpm: 40, key: "D#m", genre: "classical", mood: "romantic" }
+    expected_constraints: { tempo_range: [40, 50], min_melody_notes: 4, min_drum_hits: 1 }
+    reference_notes: "Edge case: min BPM — key uses D#m equivalent"
+  - id: gp-016
+    prompt: "lo-fi study beat with vinyl crackle feel"
+    controls: { tempo_bpm: 85, key: "Fm", genre: "lo-fi", mood: "calm" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-017
+    prompt: "jazz ii-V-I turnaround"
+    controls: { tempo_bpm: 120, key: "Bb", genre: "jazz", mood: "happy" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-018
+    prompt: "trap hi-hat rolls"
+    controls: { tempo_bpm: 140, key: "Cm", genre: "hip-hop", mood: "dark" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 2 }
+  - id: gp-019
+    prompt: "custom genre fusion"
+    controls: { tempo_bpm: 110, key: "D", genre: "other", mood: "other", genre_custom: "synthwave", mood_custom: "nostalgic" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+  - id: gp-020
+    prompt: "four bar loop for content creation"
+    controls: { tempo_bpm: 95, key: "Am", genre: "electronic", mood: "calm" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1, bars: 4 }
+  - id: gp-021
+    prompt: "add energy and faster tempo"
+    controls: { tempo_bpm: 130, key: "G", genre: "pop", mood: "energetic" }
+    expected_constraints: { min_melody_notes: 4, min_drum_hits: 1 }
+    reference_notes: "Refinement-style prompt"

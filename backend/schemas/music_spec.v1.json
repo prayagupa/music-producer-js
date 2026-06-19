@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "music_spec.v1",
+  "type": "object",
+  "required": ["version", "meta", "chords", "drums", "melody"],
+  "properties": {
+    "version": { "const": "1.0" },
+    "meta": {
+      "type": "object",
+      "required": ["tempo_bpm", "key", "genre", "mood", "time_signature", "bars"],
+      "properties": {
+        "tempo_bpm": { "type": "integer", "minimum": 40, "maximum": 240 },
+        "key": { "type": "string", "pattern": "^(A|A#|B|C|C#|D|D#|E|F|F#|G|G#)(m)?$" },
+        "genre": { "type": "string", "maxLength": 50 },
+        "mood": { "type": "string", "maxLength": 50 },
+        "time_signature": { "enum": ["4/4", "3/4", "6/8"] },
+        "bars": { "type": "integer", "minimum": 1, "maximum": 8 }
+      }
+    },
+    "chords": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["symbol", "start_bar", "duration_beats"],
+        "properties": {
+          "symbol": { "type": "string" },
+          "start_bar": { "type": "integer", "minimum": 1 },
+          "duration_beats": { "type": "number", "minimum": 0.5 }
+        }
+      }
+    },
+    "drums": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["instrument", "start_beat", "velocity"],
+        "properties": {
+          "instrument": { "enum": ["kick", "snare", "hihat_closed", "hihat_open", "clap", "tom"] },
+          "start_beat": { "type": "number", "minimum": 0 },
+          "velocity": { "type": "integer", "minimum": 1, "maximum": 127 }
+        }
+      }
+    },
+    "melody": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["pitch", "start_beat", "duration_beats", "velocity"],
+        "properties": {
+          "pitch": { "type": "integer", "minimum": 0, "maximum": 127 },
+          "start_beat": { "type": "number", "minimum": 0 },
+          "duration_beats": { "type": "number", "minimum": 0.25 },
+          "velocity": { "type": "integer", "minimum": 1, "maximum": 127 }
+        }
+      }
+    }
+  }
+}

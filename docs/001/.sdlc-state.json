@@ -1,0 +1,67 @@
+{
+  "featureId": "001",
+  "feature": "music-producer-app",
+  "updatedAt": "2026-06-19T22:54:18.000Z",
+  "stages": {
+    "prd": { "status": "done", "artifact": "docs/001/PRD.md" },
+    "spec": { "status": "done", "artifact": "docs/001/SPEC.md" },
+    "spec-review": { "status": "done", "verdict": "approved", "artifact": "docs/001/SPEC.md#review-summary" },
+    "execution-plan": { "status": "done", "artifact": "docs/001/EXECUTION-PLAN.md" },
+    "implementation": { "status": "done", "branch": "001/mvp" }
+  },
+  "stories": {
+    "STORY-01": { "title": "Delete Legacy Code & Initialize Repo Structure", "priority": "P0", "status": "done", "phase": 1 },
+    "STORY-02": { "title": "Backend Foundation & Health API", "priority": "P0", "status": "done", "phase": 1 },
+    "STORY-03": { "title": "Docker Compose & Dev Tooling", "priority": "P0", "status": "done", "phase": 1 },
+    "STORY-04": { "title": "Music Spec JSON Schema & Domain Validation", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-05": { "title": "LLM Provider Abstraction (Ollama + OpenAI)", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-06": { "title": "MIDI Generation Engine", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-07": { "title": "Session & Generation API", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-08": { "title": "Frontend Scaffold & Chat UI", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-09": { "title": "Structured Controls Panel", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-10": { "title": "MIDI Preview, Playback & Download", "priority": "P0", "status": "done", "phase": 2 },
+    "STORY-11": { "title": "Golden Prompt Dataset", "priority": "P0", "status": "done", "phase": 3 },
+    "STORY-12": { "title": "Eval CLI (4-Layer Framework)", "priority": "P0", "status": "done", "phase": 3 },
+    "STORY-13": { "title": "CI Eval Integration", "priority": "P0", "status": "done", "phase": 3 },
+    "STORY-14": { "title": "Error Handling & Multi-Turn Polish", "priority": "P1", "status": "done", "phase": 3 },
+    "STORY-15": { "title": "Documentation & MVP Release Checklist", "priority": "P1", "status": "done", "phase": 3 },
+    "STORY-16": { "title": "WAV Audio Export (Stretch)", "priority": "P2", "status": "todo", "phase": "post-mvp" }
+  },
+  "notes": {
+    "userRequirements": [
+      "Music producer app for creators",
+      "Open-source LLM (not proprietary APIs unless fallback)",
+      "Eval framework for app quality",
+      "Fresh start — delete/replace current codebase"
+    ],
+    "legacyCode": "Removed — Angular/Express stack deleted in STORY-01",
+    "seedIdea": "docs/initial-thought.md",
+    "specReviewVerdict": "APPROVED — no unresolved High severity findings",
+    "decisions": {
+      "frontend": "React 18 + Vite + TypeScript",
+      "backend": "Python FastAPI",
+      "llmDefault": "Ollama llama3:8b",
+      "llmFallback": "OpenAI GPT-4o-mini via USE_OPENAI env",
+      "midiPlayback": "Tone.js + @tonejs/midi",
+      "ciStrategy": "Mock LLM on PR and nightly (eval/mock fixtures); live Ollama optional locally",
+      "outputFormat": "MIDI (WAV is P2 STORY-16)"
+    },
+    "testResults": {
+      "pytest": "45 passed",
+      "evalQuick": "PASS (5/5 L1-L3, mock fixtures, golden constraints validated)",
+      "e2eIntegration": "2/2 API integration tests passed (docs/001/E2E-TEST-RESULTS.md)"
+    },
+    "codeReviewFixes": [
+      "eval/mock per-prompt fixtures (gp-001..gp-021)",
+      "golden expected_constraints validation in eval runner",
+      "docker-compose ollama service_healthy dependency",
+      "JSON repair budget centralized in use case (max 2 retries)",
+      "OpenAI HTTP errors mapped to OPENAI_UNAVAILABLE (503)",
+      "mood shown in frontend metadata panel",
+      "chord_mapping seventh detection typo fixed",
+      "nightly-eval.yml documents mock fixture strategy",
+      "E2E results doc based on API integration tests",
+      ".gitignore expanded for __pycache__, node_modules, .venv, eval reports"
+    ]
+  }
+}
